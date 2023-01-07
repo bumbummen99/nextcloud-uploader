@@ -1,0 +1,55 @@
+
+name: Upload
+
+on:
+  workflow_dispatch:
+  inputs:
+    type:
+      description: 'Type'
+      required: true
+      default: 'wget' 
+      type: choice
+      options:
+      - wget
+      - youtube-dl
+    extract-audio
+      description: 'Extract mp3? (YouTube-DL only!)'
+      required: true 
+      type: boolean
+      default: true
+    url:
+      description: 'Virtual Machine SKU'     
+      required: true
+      type: string
+
+jobs:
+  wget:
+    runs-on; ubuntu-latest
+    if:  ${{ inputs.type }}  == 'wget'
+    steps:      
+    -
+      name: Download file
+      run: wget  ${{ inputs.type }}
+  youtube-dl:
+    runs-on: ubuntu-latest
+    if:  ${{ inputs.type }}  == 'youtube-dl'
+    steps:      
+    - name: Setup YouTube-DL(P)
+      run: |
+           wget https://github.com/nicolaschan/minecraft-backup/releases/latest/download/backup.sh -O scripts/backup.sh
+           chmod +x scripts/backup.sh
+           
+    - name: Download video
+      run: |
+           DIR=$(pwd)
+  upload:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs: [wget, youtube-dl]
+    steps:
+    -
+      name: Setup NextCloud CLI
+      run: wget  ${{ inputs.type }}
+    -
+      name: Upload files
+      run: wget  ${{ inputs.type }}
