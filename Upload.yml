@@ -12,7 +12,7 @@ on:
       options:
       - wget
       - youtube-dl
-    extract-audio
+    extract-audio:
       description: 'Extract mp3? (YouTube-DL only!)'
       required: true 
       type: boolean
