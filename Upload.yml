@@ -26,10 +26,21 @@ jobs:
   wget:
     runs-on; ubuntu-latest
     if:  ${{ inputs.type }}  == 'wget'
-    steps:      
+    steps:
+    -
+      name: Create output directory
+      run: mkdir output
     -
       name: Download file
-      run: wget  ${{ inputs.type }}
+      run: wget -P ./output ${{ inputs.type }}
+    -
+      name: Compress downloaded files
+      run: mkdir output
+    - 
+      uses: actions/upload-artifact@v2
+      with:
+        name: downloaded-files
+        path: ozutput.tar.gz
   youtube-dl:
     runs-on: ubuntu-latest
     if:  ${{ inputs.type }}  == 'youtube-dl'
