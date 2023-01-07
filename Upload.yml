@@ -48,8 +48,12 @@ jobs:
     needs: [wget, youtube-dl]
     steps:
     -
-      name: Setup NextCloud CLI
-      run: wget  ${{ inputs.type }}
-    -
       name: Upload files
-      run: wget  ${{ inputs.type }}
+      run: |
+        for FILE in /this/is/my/path/*
+        do
+            curl \
+              -u ${{ secrets.NEXTCLOUD_USERNAME }}:${{ secrets.NEXTCLOUD_PASSWORD }} \
+              -T /this/is/my/path/$FILE \
+              ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/${{ secrets.NEXTCLOUD_USERNAME }}/
+        done;
