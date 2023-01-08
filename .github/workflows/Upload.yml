@@ -93,6 +93,6 @@ jobs:
         do
             curl \
               -u ${{ secrets.NEXTCLOUD_USERNAME }}:${{ secrets.NEXTCLOUD_PASSWORD }} \
-              -T ./output/$FILE \
+              -T $FILE \
               ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/${{ secrets.NEXTCLOUD_USERNAME }}/
         done
