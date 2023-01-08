@@ -9,7 +9,7 @@ Simply upload files to NextCloud using GitHub Actions.
 ## How?
 1. Fork the repository
 2. Add the following **secrets** for your actions:
-  - **NEXTCLOUD_URL:** The base URL of your NextCloud instance- **WITHOUT** trailing slash! 
-  - **NEXTCLOUD_USERNAME:** The log in username for your NextCloud account
-  - **NEXTCLOUD_PASSWORD:** The (app-)password of the NextCloud account.
+   - **NEXTCLOUD_URL:** The base URL of your NextCloud instance- **WITHOUT** trailing slash! 
+   - **NEXTCLOUD_USERNAME:** The log in username for your NextCloud account
+   - **NEXTCLOUD_PASSWORD:** The (app-)password of the NextCloud account.
 3. Run the *Upload* action with your desired inputs and enjoy :)
