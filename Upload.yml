@@ -18,7 +18,7 @@ on:
       type: boolean
       default: true
     url:
-      description: 'Virtual Machine SKU'     
+      description: 'URL that should be uploaded to NextCloud'     
       required: true
       type: string
 
@@ -35,36 +35,57 @@ jobs:
       run: wget -P ./output ${{ inputs.type }}
     -
       name: Compress downloaded files
-      run: mkdir output
+      run: tar -zcvf output.tar.gz output
     - 
       uses: actions/upload-artifact@v2
       with:
-        name: downloaded-files
-        path: ozutput.tar.gz
+        name: output
+        path: output.tar.gz
   youtube-dl:
     runs-on: ubuntu-latest
     if:  ${{ inputs.type }}  == 'youtube-dl'
-    steps:      
-    - name: Setup YouTube-DL(P)
+    steps:
+    -
+      name: Show files
+      run: ls -l
+    - 
+      name: Setup YouTube-DL(P)
       run: |
            wget https://github.com/nicolaschan/minecraft-backup/releases/latest/download/backup.sh -O scripts/backup.sh
            chmod +x scripts/backup.sh
-           
-    - name: Download video
-      run: |
-           DIR=$(pwd)
+    -
+      name: Show files
+      run: ls -l
+    -
+      name: Compress downloaded files
+      run: tar -zcvf output.tar.gz output
+    - 
+      uses: actions/upload-artifact@v2
+      with:
+        name: output
+        path: output.tar.gz
   upload:
     runs-on: ubuntu-latest
     if: ${{ always() }}
     needs: [wget, youtube-dl]
     steps:
+    - 
+      uses: actions/download-artifact@v3
+      with:
+        name: output
     -
-      name: Upload files
-      run: |
-        for FILE in /this/is/my/path/*
-        do
-            curl \
-              -u ${{ secrets.NEXTCLOUD_USERNAME }}:${{ secrets.NEXTCLOUD_PASSWORD }} \
-              -T /this/is/my/path/$FILE \
-              ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/${{ secrets.NEXTCLOUD_USERNAME }}/
-        done;
+      name: Decompress artifact
+      run: tar -xvf output.tar.gz
+    -
+      name: Show files
+      run: ls -l
+#   -
+#     name: Upload files
+#     run: |
+#       for FILE in /this/is/my/path/*
+#       do
+#           curl \
+#             -u ${{ secrets.NEXTCLOUD_USERNAME }}:${{ secrets.NEXTCLOUD_PASSWORD }} \
+#             -T /this/is/my/path/$FILE \
+#             ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/${{ secrets.NEXTCLOUD_USERNAME }}/
+#       done;
