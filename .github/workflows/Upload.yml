@@ -96,3 +96,8 @@ jobs:
               -T $FILE \
               ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/${{ secrets.NEXTCLOUD_USERNAME }}/
         done
+    - 
+      uses: geekyeggo/delete-artifact@v2
+      if: always()
+      with:
+          name: output
