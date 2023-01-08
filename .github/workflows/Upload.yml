@@ -25,14 +25,14 @@ on:
 jobs:
   wget:
     runs-on: ubuntu-latest
-    if:  ${{ inputs.type }}  == 'wget'
+    if: inputs.type == 'wget'
     steps:
     -
       name: Create output directory
       run: mkdir output
     -
       name: Download file
-      run: wget -P ./output ${{ inputs.type }}
+      run: wget -P ./output ${{ inputs.url }}
     -
       name: Compress downloaded files
       run: tar -zcvf output.tar.gz output
@@ -43,7 +43,7 @@ jobs:
         path: output.tar.gz
   youtube-dl:
     runs-on: ubuntu-latest
-    if:  ${{ inputs.type }}  == 'youtube-dl'
+    if: inputs.type == 'youtube-dl'
     steps:
     -
       name: Show files
