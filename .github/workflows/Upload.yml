@@ -79,13 +79,13 @@ jobs:
     -
       name: Show files
       run: ls -l
-#   -
-#     name: Upload files
-#     run: |
-#       for FILE in /this/is/my/path/*
-#       do
-#           curl \
-#             -u ${{ secrets.NEXTCLOUD_USERNAME }}:${{ secrets.NEXTCLOUD_PASSWORD }} \
-#             -T /this/is/my/path/$FILE \
-#             ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/${{ secrets.NEXTCLOUD_USERNAME }}/
-#       done;
+    -
+      name: Upload files
+      run: |
+        for FILE in ./output/*
+        do
+            curl \
+              -u ${{ secrets.NEXTCLOUD_USERNAME }}:${{ secrets.NEXTCLOUD_PASSWORD }} \
+              -T ./output/$FILE \
+              ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/${{ secrets.NEXTCLOUD_USERNAME }}/
+        done
