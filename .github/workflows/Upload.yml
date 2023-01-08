@@ -24,7 +24,7 @@ on:
 
 jobs:
   wget:
-    runs-on; ubuntu-latest
+    runs-on: ubuntu-latest
     if:  ${{ inputs.type }}  == 'wget'
     steps:
     -
