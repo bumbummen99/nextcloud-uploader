@@ -95,10 +95,10 @@ jobs:
       run: |
         for FILE in output/*
         do
-          echo "Uploading file: $FILE"
+          echo "Uploading file: $FILE as $(urlencode '$FILE')"
           curl \
             -u ${{ secrets.NEXTCLOUD_USERNAME }}:${{ secrets.NEXTCLOUD_PASSWORD }} \
-            -T "$FILE" \
+            -T "$(urlencode '$FILE')" \
             ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/GitHub-Uploads/${{ secrets.NEXTCLOUD_USERNAME }}/
         done
     - 
