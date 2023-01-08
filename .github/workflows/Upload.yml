@@ -3,24 +3,24 @@ name: Upload
 
 on:
   workflow_dispatch:
-  inputs:
-    type:
-      description: 'Type'
-      required: true
-      default: 'wget' 
-      type: choice
-      options:
-      - wget
-      - youtube-dl
-    extract-audio:
-      description: 'Extract mp3? (YouTube-DL only!)'
-      required: true 
-      type: boolean
-      default: true
-    url:
-      description: 'URL that should be uploaded to NextCloud'     
-      required: true
-      type: string
+    inputs:
+      type:
+        description: 'Type'
+        required: true
+        default: 'wget' 
+        type: choice
+        options:
+        - wget
+        - youtube-dl
+      extract-audio:
+        description: 'Extract mp3? (YouTube-DL only!)'
+        required: true 
+        type: boolean
+        default: true
+      url:
+        description: 'URL that should be uploaded to NextCloud'     
+        required: true
+        type: string
 
 jobs:
   wget:
