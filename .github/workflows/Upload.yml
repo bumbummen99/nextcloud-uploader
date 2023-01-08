@@ -85,11 +85,11 @@ jobs:
       run: tar -xvf output.tar.gz
     -
       name: Show files
-      run: ls -l
+      run: ls -l output
     -
       name: Upload files
       run: |
-        for FILE in ./output/*
+        for FILE in output/*
         do
             curl \
               -u ${{ secrets.NEXTCLOUD_USERNAME }}:${{ secrets.NEXTCLOUD_PASSWORD }} \
