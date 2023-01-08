@@ -45,17 +45,24 @@ jobs:
     runs-on: ubuntu-latest
     if: inputs.type == 'youtube-dl'
     steps:
-    -
-      name: Show files
-      run: ls -l
     - 
       name: Setup YouTube-DL(P)
       run: |
-           wget https://github.com/nicolaschan/minecraft-backup/releases/latest/download/backup.sh -O scripts/backup.sh
-           chmod +x scripts/backup.sh
+           wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/youtube-dl
+           chmod +x /usr/local/bin/youtube-dl
+    -
+      name: Download Video/Audio
+      run: |
+        mkdir output
+        cd output
+        if [[ "${{ inputs.extract-audio }}" == true ]]; then
+          youtube-dl --extract-audio --audio-format mp3 ${{ inputs.url }}
+        else
+          youtube-dl ${{ inputs.url }}
+        fi
     -
       name: Show files
-      run: ls -l
+      run: ls -l output
     -
       name: Compress downloaded files
       run: tar -zcvf output.tar.gz output
