@@ -95,7 +95,7 @@ jobs:
           curl \
             -u ${{ secrets.NEXTCLOUD_USERNAME }}:${{ secrets.NEXTCLOUD_PASSWORD }} \
             -T "$FILE" \
-            ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/${{ secrets.NEXTCLOUD_USERNAME }}/
+            ${{ secrets.NEXTCLOUD_URL }}/remote.php/dav/files/GitHub-Uploads/${{ secrets.NEXTCLOUD_USERNAME }}/
         done
     - 
       uses: geekyeggo/delete-artifact@v2
